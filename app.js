@@ -798,26 +798,17 @@ function submitPayment() {
   let payheroPhone = cleanPhone.replace(/\D/g, '').replace(/^0/, '254');
   if (!payheroPhone.startsWith('254')) payheroPhone = '254' + payheroPhone;
 
-  const PAYHERO_URL = 'https://backend.payhero.co.ke/api/v2/payments';
-  const PAYHERO_AUTH = 'Basic eXQ3ejV2Z2F0WVdYUGd5bFRmT206TzNRY1EycXVpN0diUGJrSGhidHlYQ1dmZ3NqVHNWNkwwUmZ0d21CbQ==';
-  const PAYHERO_CHANNEL_ID = 5306;
-  const PAYHERO_CALLBACK_URL = 'https://nyota-foundation1.onrender.com/api/mpesa/callback/';
-
   const ref = `TKT-${Date.now().toString().slice(-8)}`;
 
-  fetch(PAYHERO_URL, {
+  fetch(`${API_BASE_URL}/api/mpesa/stk-push/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': PAYHERO_AUTH,
     },
     body: JSON.stringify({
       amount: Math.round(grandTotal),
       phone_number: payheroPhone,
-      channel_id: PAYHERO_CHANNEL_ID,
-      provider: 'm-pesa',
       external_reference: ref,
-      callback_url: PAYHERO_CALLBACK_URL,
       description: `Summer Tides Festival Ticket - ${ref}`,
     }),
   })
