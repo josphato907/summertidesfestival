@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "routes": [
+    {
+      "src": "/images/(.*)",
+      "headers": {
+        "Cache-Control": "public, max-age=86400"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "headers": {
+        "Cache-Control": "public, max-age=3600"
+      }
+    }
+  ]
+}
