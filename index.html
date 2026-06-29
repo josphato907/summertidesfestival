@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUMMER TIDES FESTIVAL</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Africa's #1 Beach Festival 🏝️ Official store for Summer Tides Festival — Buy tickets and merchandise for the ultimate beach experience in Mombasa, Kenya.">
+  <meta property="og:title" content="SUMMER TIDES FESTIVAL">
+  <meta property="og:description" content="Africa's #1 Beach Festival 🏝️ Official store for Summer Tides Festival">
+  <meta property="og:image" content="images/festival_banner.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SUMMER TIDES FESTIVAL">
+  <meta name="twitter:description" content="Africa's #1 Beach Festival 🏝️ Official store for Summer Tides Festival">
+  <meta name="twitter:image" content="images/festival_banner.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="images/festival_logo.png">
+  <link rel="apple-touch-icon" href="images/festival_logo.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Progress Bar -->
+  <div id="progress-bar"></div>
+
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <nav id="navbar" aria-label="Main navigation">
+    <div class="container navbar-inner">
+      <!-- Logo -->
+      <a class="navbar-logo-link" href="#" aria-label="Summer Tides Festival Home">
+        <img class="navbar-logo-img" src="images/festival_logo.png" alt="Summer Tides Festival Logo"
+          onerror="this.style.background='#119DA4'">
+      </a>
+
+      <!-- Desktop Search -->
+      <div class="navbar-search-wrapper">
+        <button class="search-btn" id="search-trigger-desktop" onclick="openSearch()" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+          </svg>
+          <span>Search for events or products</span>
+        </button>
+      </div>
+
+      <!-- Right actions -->
+      <div class="navbar-actions">
+        <!-- Mobile Search -->
+        <button class="icon-btn mobile-search" onclick="openSearch()" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+          </svg>
+        </button>
+
+        <!-- Country Flag -->
+        <div class="flag-btn" title="Kenya">
+          <img src="https://cdn.ipregistry.co/flags/emojitwo/ke.svg" alt="Kenya flag" width="28" height="28"
+            onerror="this.outerHTML='<span style=font-size:1.3rem>🇰🇪</span>'">
+        </div>
+
+        <!-- Cart -->
+        <button class="icon-btn" id="cart-btn" onclick="openCart()" aria-label="Shopping cart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>
+          </svg>
+          <span id="cart-badge" class="cart-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main wrapper -->
+  <div class="relative flex flex-col min-h-screen">
+
+    <!-- ============================================================
+         HERO BANNER
+         ============================================================ -->
+    <section class="hero-banner" aria-label="Festival Banner">
+      <img src="images/festival_banner.png" alt="Summer Tides Festival 2026 — Africa's #1 Beach Festival"
+        onerror="this.style.display='none'" loading="eager">
+      <div class="hero-banner-overlay"></div>
+    </section>
+
+    <!-- ============================================================
+         STORE PROFILE
+         ============================================================ -->
+    <section class="store-profile">
+      <div class="container">
+        <div class="store-profile-top">
+          <!-- Store Logo -->
+          <div class="store-logo-wrapper">
+            <img class="store-logo" src="images/festival_logo.png" alt="Summer Tides Festival"
+              onerror="this.src='https://placehold.co/108x108/119DA4/ffffff?text=STF'">
+          </div>
+
+          <!-- Desktop Socials (right side) -->
+          <div class="store-profile-actions">
+            <div class="socials-row socials-row-desktop">
+              <a class="social-link" href="https://www.instagram.com/summertides.fest/" target="_blank" rel="noreferrer" aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+              <a class="social-link" href="https://x.com/summertidesfest" target="_blank" rel="noreferrer" aria-label="X (Twitter)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              <a class="social-link" href="https://www.youtube.com/@SUMMERTIDESFESTIVAL" target="_blank" rel="noreferrer" aria-label="YouTube">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Store Info -->
+        <div class="store-info">
+          <div class="store-title-row">
+            <h1 class="store-name">SUMMER TIDES FESTIVAL</h1>
+            <span class="verified-badge" title="Verified Store">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="m21.56 10.739-1.36-1.58c-.26-.3-.47-.86-.47-1.26v-1.7c0-1.06-.87-1.93-1.93-1.93h-1.7c-.39 0-.96-.21-1.26-.47l-1.58-1.36c-.69-.59-1.82-.59-2.52 0l-1.57 1.37c-.3.25-.87.46-1.26.46H6.18c-1.06 0-1.93.87-1.93 1.93v1.71c0 .39-.21.95-.46 1.25l-1.35 1.59c-.58.69-.58 1.81 0 2.5l1.35 1.59c.25.3.46.86.46 1.25v1.71c0 1.06.87 1.93 1.93 1.93h1.73c.39 0 .96.21 1.26.47l1.58 1.36c.69.59 1.82.59 2.52 0l1.58-1.36c.3-.26.86-.47 1.26-.47h1.7c1.06 0 1.93-.87 1.93-1.93v-1.7c0-.39.21-.96.47-1.26l1.36-1.58c.58-.69.58-1.83-.01-2.52Zm-5.4-.63-4.83 4.83a.75.75 0 0 1-1.06 0l-2.42-2.42a.754.754 0 0 1 0-1.06c.29-.29.77-.29 1.06 0l1.89 1.89 4.3-4.3c.29-.29.77-.29 1.06 0 .29.29.29.77 0 1.06Z"/>
+              </svg>
+            </span>
+          </div>
+
+          <div class="store-description">
+            <p>Africa's #1 Beach Festival 🏝️<br>
+            Official store for Summer Tides Festival</p>
+          </div>
+
+          <!-- Mobile Socials -->
+          <div class="socials-row-mobile">
+            <a class="social-link" href="https://www.instagram.com/summertides.fest/" target="_blank" rel="noreferrer" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+            <a class="social-link" href="https://x.com/summertidesfest" target="_blank" rel="noreferrer" aria-label="X (Twitter)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a class="social-link" href="https://www.youtube.com/@SUMMERTIDESFESTIVAL" target="_blank" rel="noreferrer" aria-label="YouTube">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         MAIN CONTENT
+         ============================================================ -->
+    <main>
+      <!-- Category Tabs -->
+      <div class="tabs-section" id="tabs-section">
+        <div class="container">
+          <div class="tabs-inner" role="tablist" aria-label="Product categories">
+            <button class="tab-btn active" data-category="all" role="tab" id="tab-all" aria-selected="true">All</button>
+            <button class="tab-btn" data-category="events" role="tab" id="tab-events" aria-selected="false">Events &amp; Tickets</button>
+            <button class="tab-btn" data-category="merchandise" role="tab" id="tab-merchandise" aria-selected="false">Merchandise</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <section class="products-section">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="dot"></span>
+              Available Now
+            </h2>
+          </div>
+          <div class="products-grid" id="products-grid" role="list" aria-label="Products">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Store Info Footer Section -->
+      <section class="store-footer-section">
+        <div class="container">
+          <div class="store-footer-grid">
+            <div class="store-footer-brand">
+              <h2>SUMMER TIDES FESTIVAL</h2>
+              <p>Africa's #1 Beach Festival 🏝️<br>Official store for Summer Tides Festival</p>
+            </div>
+            <div class="store-footer-links">
+              <div class="store-footer-col">
+                <h3>Categories</h3>
+                <ul id="footer-categories">
+                  <li><a href="#">Events &amp; Tickets</a></li>
+                  <li><a href="#">Merchandise</a></li>
+                </ul>
+              </div>
+              <div class="store-footer-col">
+                <h3>Contact</h3>
+                <ul>
+                  <li><a href="tel:+254741492515">+254 741492515</a></li>
+                  <li><a href="mailto:info@airbeatglobal.com">info@airbeatglobal.com</a></li>
+                </ul>
+              </div>
+              <div class="store-footer-col">
+                <h3>Socials</h3>
+                <ul>
+                  <li><a href="https://x.com/summertidesfest" target="_blank" rel="noreferrer">X (Twitter)</a></li>
+                  <li><a href="https://www.instagram.com/summertides.fest/" target="_blank" rel="noreferrer">Instagram</a></li>
+                  <li><a href="https://www.youtube.com/@SUMMERTIDESFESTIVAL" target="_blank" rel="noreferrer">YouTube</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============================================================
+         SITE FOOTER
+         ============================================================ -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="site-footer-main">
+          <div class="site-footer-brand">
+            <div class="footer-logo">
+              Hustle<span>sasa</span>
+            </div>
+            <div class="footer-meta-row">
+              <img src="https://cdn.ipregistry.co/flags/emojitwo/ke.svg" alt="Kenya" width="20" height="20"
+                style="border-radius:3px" onerror="this.outerHTML='🇰🇪'">
+              <span>Kenya</span>
+            </div>
+            <div class="footer-meta-row">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.621 8.45c-1.05-4.62-5.08-6.7-8.62-6.7h-.01c-3.53 0-7.57 2.07-8.62 6.69-1.17 5.16 1.99 9.53 4.85 12.28a5.436 5.436 0 0 0 3.78 1.53c1.36 0 2.72-.51 3.77-1.53 2.86-2.75 6.02-7.11 4.85-12.27Zm-8.62 5.01a3.15 3.15 0 1 1 0-6.3 3.15 3.15 0 0 1 0 6.3Z"/>
+              </svg>
+              <span>Parklands Road, Westlands, Nairobi, Kenya.</span>
+            </div>
+          </div>
+
+          <div class="site-footer-socials">
+            <h3>Follow Hustlesasa on:</h3>
+            <div class="footer-socials-list">
+              <a class="footer-social-btn" href="https://www.facebook.com/hustlesasa" target="_blank" rel="noreferrer" aria-label="Facebook">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+              <a class="footer-social-btn" href="https://x.com/Hustle_Sasa" target="_blank" rel="noreferrer" aria-label="X (Twitter)">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              <a class="footer-social-btn" href="https://www.instagram.com/hustlesasa" target="_blank" rel="noreferrer" aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+              <a class="footer-social-btn" href="https://www.youtube.com/@hustlesasa" target="_blank" rel="noreferrer" aria-label="YouTube">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="site-footer-bottom">
+          <p>© 2026 Hustlesasa. All rights reserved.</p>
+          <div class="footer-legal-links">
+            <a href="https://support.hustlesasa.com/docs/knowledgebase/customer-policies/privacy-for-hustlesasa-visitors/" target="_blank" rel="noreferrer">Privacy Policy</a>
+            <a href="https://support.hustlesasa.com/docs/knowledgebase/customer-policies/" target="_blank" rel="noreferrer">Terms of use</a>
+            <a href="https://support.hustlesasa.com/docs/knowledgebase/hustlesasa-policies/general-refunds-and-returns/" target="_blank" rel="noreferrer">Refunds &amp; Returns</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ============================================================
+       SEARCH MODAL
+       ============================================================ -->
+  <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-modal">
+      <div class="search-input-row">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+        </svg>
+        <input type="text" id="search-input" placeholder="Search for events or products…" autocomplete="off" aria-label="Search">
+        <button class="search-close-btn" onclick="closeSearch()" aria-label="Close search">✕</button>
+      </div>
+      <div class="search-results" id="search-results">
+        <div class="search-empty">Start typing to search for events or products…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       DRAWER BACKDROP
+       ============================================================ -->
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+
+  <!-- ============================================================
+       CART DRAWER
+       ============================================================ -->
+  <aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Shopping cart">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>
+        </svg>
+        Your Cart
+      </div>
+      <button class="drawer-close" onclick="closeCart()" aria-label="Close cart">✕</button>
+    </div>
+    <div class="drawer-body" id="cart-body">
+      <!-- Populated by JS -->
+    </div>
+    <div class="drawer-footer" id="cart-footer">
+      <!-- Populated by JS -->
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       PRODUCT DETAIL MODAL
+       ============================================================ -->
+  <div class="product-modal-overlay" id="product-modal-overlay" role="dialog" aria-modal="true" aria-label="Product details">
+    <!-- Populated by JS -->
+  </div>
+
+  <!-- ============================================================
+       CHECKOUT MODAL
+       ============================================================ -->
+  <div class="checkout-modal-overlay" id="checkout-modal-overlay" role="dialog" aria-modal="true" aria-label="Checkout">
+    <div class="checkout-modal">
+      <div class="checkout-modal-header">
+        <h2>Checkout</h2>
+        <button class="drawer-close" onclick="closeCheckout()" aria-label="Close checkout">✕</button>
+      </div>
+      <div class="checkout-modal-body" id="checkout-body">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TERMS MODAL
+       ============================================================ -->
+  <div class="terms-modal-overlay" id="terms-modal-overlay" role="dialog" aria-modal="true" aria-label="Terms and Conditions">
+    <div class="terms-modal">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <h2 style="margin:0">Terms &amp; Conditions</h2>
+        <button class="drawer-close" onclick="closeTerms()" aria-label="Close terms">✕</button>
+      </div>
+      <ul>
+        <li><strong>Age Restriction:</strong> This event is strictly 18+. A valid government-issued ID matching the ticket name may be required at entry.</li>
+        <li><strong>Right of Admission:</strong> Management reserves the right of admission and may deny entry without refund.</li>
+        <li><strong>Ticket Authenticity:</strong> All tickets are uniquely barcoded and scanned on entry.</li>
+        <li><strong>Refund Policy:</strong> All ticket sales are final and non-refundable.</li>
+        <li><strong>Wristbands:</strong> Wristbands are non-transferable and must be worn at all times.</li>
+        <li><strong>Event Conditions:</strong> This is an open-air event and will proceed in safe weather.</li>
+        <li><strong>Prohibited Items:</strong> No outside food, drinks, weapons, or illegal substances.</li>
+        <li><strong>Conduct &amp; Safety:</strong> Zero tolerance for harassment or misconduct.</li>
+        <li><strong>Photography &amp; Media:</strong> You consent to being photographed or recorded.</li>
+        <li><strong>Liability:</strong> Attendance is at your own risk.</li>
+        <li><strong>Compliance:</strong> Attendance constitutes agreement to these terms.</li>
+      </ul>
+      <div style="margin-top:20px">
+        <button class="btn btn-primary" onclick="closeTerms()">I Understand</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TOAST CONTAINER
+       ============================================================ -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="false" aria-label="Notifications"></div>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
