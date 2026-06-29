@@ -800,7 +800,7 @@ function submitPayment() {
 
   const ref = `TKT-${Date.now().toString().slice(-8)}`;
 
-  fetch(`${API_BASE_URL}/api/mpesa/stk-push/`, {
+  fetch(`/api/payhero`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
