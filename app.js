@@ -4,6 +4,11 @@
 
 'use strict';
 
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:3000'
+  : 'https://nyota-foundation1.onrender.com';
+
+
 /* ----------------------------------------------------------------
    DATA — Products / Tickets / Merchandise
    ---------------------------------------------------------------- */
@@ -635,9 +640,11 @@ function renderCheckoutModal() {
       ${state.paymentMethod === 'mpesa' ? `
         <div class="form-group">
           <label class="form-label" for="mpesa-phone">M-Pesa Number <span class="required">*</span></label>
-          <input class="form-input" type="tel" id="mpesa-phone" placeholder="0700 000 000" value="${($('#co-phone') ? '' : '')}">
+          <input class="form-input" type="tel" id="mpesa-phone" placeholder="0700 000 000" value="${state.checkoutDetails?.phone || ''}">
         </div>
-        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:0.8rem;color:#15803d">
+        <div id="mpesa-error" style="display:none;background:#fef2f2;border:1px solid #fca5a5;border-radius:10px;padding:10px 12px;margin-bottom:16px;font-size:0.8rem;color:#b91c1c;font-weight:600"></div>
+        <div id="mpesa-status" style="display:none;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:0.8rem;color:#15803d"></div>
+        <div id="mpesa-info-box" style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:0.8rem;color:#15803d">
           <strong>How it works:</strong> Enter your Safaricom number above. You will receive a push notification on your phone to confirm the payment of <strong>${STORE.currencySymbol} ${grand.toLocaleString()}</strong>.
         </div>` : `
         <div class="form-row" style="margin-bottom:4px">
@@ -729,20 +736,142 @@ function selectPayment(method) {
 }
 
 function submitPayment() {
+  const total = getCartTotal();
+  const vat = Math.round(total * 0.16);
+  const grandTotal = total + vat;
+
+  if (state.paymentMethod !== 'mpesa') {
+    // Mock card checkout
+    const btn = document.querySelector('.checkout-modal .btn-primary');
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = `<span class="spin" style="width:20px;height:20px;border:2px solid rgba(255,255,255,0.4);border-top-color:white;border-radius:50%;display:inline-block"></span> Processing…`;
+    }
+    setProgress(60);
+    setTimeout(() => {
+      setProgress(100);
+      state.checkoutComplete = true;
+      state.cart = [];
+      updateCartBadge();
+      renderCartItems();
+      renderCheckoutModal();
+    }, 2200);
+    return;
+  }
+
+  // M-Pesa Live Integration
+  const mpesaPhone = document.getElementById('mpesa-phone')?.value?.trim();
+  const errorDiv = document.getElementById('mpesa-error');
+  const statusDiv = document.getElementById('mpesa-status');
+  const infoBox = document.getElementById('mpesa-info-box');
+
+  if (!mpesaPhone) {
+    if (errorDiv) {
+      errorDiv.textContent = 'M-Pesa number is required';
+      errorDiv.style.display = 'block';
+    }
+    return;
+  }
+
+  // Normalize/check phone format
+  let cleanPhone = mpesaPhone.replace(/\s/g, '');
+  if (!/^(\+?254|0)[17][0-9]{8}$/.test(cleanPhone)) {
+    if (errorDiv) {
+      errorDiv.textContent = 'Please enter a valid Kenyan phone number (07XXXXXXXX or 01XXXXXXXX)';
+      errorDiv.style.display = 'block';
+    }
+    return;
+  }
+
+  if (errorDiv) errorDiv.style.display = 'none';
+  if (infoBox) infoBox.style.display = 'none';
+  if (statusDiv) {
+    statusDiv.innerHTML = `<strong>Sending STK push prompt...</strong> Please check your phone for the M-Pesa prompt.`;
+    statusDiv.style.display = 'block';
+  }
+
   const btn = document.querySelector('.checkout-modal .btn-primary');
   if (btn) {
     btn.disabled = true;
-    btn.innerHTML = `<span class="spin" style="width:20px;height:20px;border:2px solid rgba(255,255,255,0.4);border-top-color:white;border-radius:50%;display:inline-block"></span> Processing…`;
+    btn.innerHTML = `<span class="spin" style="width:20px;height:20px;border:2px solid rgba(255,255,255,0.4);border-top-color:white;border-radius:50%;display:inline-block"></span> Sending STK Push…`;
   }
-  setProgress(60);
-  setTimeout(() => {
-    setProgress(100);
-    state.checkoutComplete = true;
-    state.cart = [];
-    updateCartBadge();
-    renderCartItems();
-    renderCheckoutModal();
-  }, 2200);
+  setProgress(30);
+
+  fetch(`${API_BASE_URL}/api/mpesa/stk-push`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      phoneNumber: cleanPhone,
+      amount: grandTotal,
+      transactionType: 'deposit',
+      accountReference: `TKT-${Date.now().toString().slice(-6)}`,
+    }),
+  })
+  .then(async (res) => {
+    const data = await res.json();
+    if (!res.ok || data.success === false) {
+      throw new Error(data.message || 'M-Pesa STK push request failed.');
+    }
+    
+    // Success: Prompt sent to user phone
+    setProgress(70);
+    if (statusDiv) {
+      statusDiv.innerHTML = `
+        <style>
+          @keyframes stk-pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+          }
+        </style>
+        <div style="text-align:center;padding:10px 0">
+          <span style="font-size:2.5rem;display:block;margin-bottom:8px;animation:stk-pulse 1.5s infinite">📲</span>
+          <strong style="display:block;font-size:0.95rem;margin-bottom:4px;color:#15803d">Check Your Phone!</strong>
+          <span style="display:block;color:#4b5563;font-size:0.8rem">An M-Pesa PIN prompt has been sent to <strong>${cleanPhone}</strong>. Enter your PIN to complete the booking.</span>
+          <div style="font-size:0.75rem;color:#9ca3af;margin-top:12px;font-style:italic">Completing order in <span id="stk-countdown" style="font-weight:bold;color:#111827">15</span> seconds...</div>
+        </div>
+      `;
+    }
+    
+    const backBtn = document.querySelector('.checkout-modal .btn-ghost');
+    if (backBtn) {
+      backBtn.style.display = 'none'; // hide back button to prevent navigation
+    }
+    if (btn) {
+      btn.style.display = 'none'; // hide payment button as we are waiting
+    }
+
+    // Countdown and automatically complete the checkout
+    let seconds = 15;
+    const interval = setInterval(() => {
+      seconds--;
+      const cdSpan = document.getElementById('stk-countdown');
+      if (cdSpan) cdSpan.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(interval);
+        setProgress(100);
+        state.checkoutComplete = true;
+        state.cart = [];
+        updateCartBadge();
+        renderCartItems();
+        renderCheckoutModal();
+      }
+    }, 1000);
+  })
+  .catch((err) => {
+    console.error('Payment Error:', err);
+    setProgress(0);
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg> Pay ${STORE.currencySymbol} ${grandTotal.toLocaleString()}`;
+    }
+    if (statusDiv) statusDiv.style.display = 'none';
+    if (infoBox) infoBox.style.display = 'block';
+    if (errorDiv) {
+      errorDiv.textContent = err.message || 'Connection error. Please try again.';
+      errorDiv.style.display = 'block';
+    }
+  });
 }
 
 /* ----------------------------------------------------------------
