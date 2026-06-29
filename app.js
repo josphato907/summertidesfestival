@@ -794,21 +794,38 @@ function submitPayment() {
   }
   setProgress(30);
 
-  fetch(`${API_BASE_URL}/initiate-payment/`, {
+  // Normalize phone to 254XXXXXXXXX format for PayHero
+  let payheroPhone = cleanPhone.replace(/\D/g, '').replace(/^0/, '254');
+  if (!payheroPhone.startsWith('254')) payheroPhone = '254' + payheroPhone;
+
+  const PAYHERO_URL = 'https://backend.payhero.co.ke/api/v2/payments';
+  const PAYHERO_AUTH = 'Basic eXQ3ejV2Z2F0WVdYUGd5bFRmT206TzNRY1EycXVpN0diUGJrSGhidHlYQ1dmZ3NqVHNWNkwwUmZ0d21CbQ==';
+  const PAYHERO_CHANNEL_ID = 5306;
+  const PAYHERO_CALLBACK_URL = 'https://nyota-foundation1.onrender.com/api/mpesa/callback/';
+
+  const ref = `TKT-${Date.now().toString().slice(-8)}`;
+
+  fetch(PAYHERO_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': PAYHERO_AUTH,
+    },
     body: JSON.stringify({
-      phone_number: cleanPhone,
-      amount: grandTotal,
-      full_name: state.checkoutDetails?.name || 'Guest',
-      fee_amount: grandTotal,
-      description: `Summer Tides Ticket - TKT-${Date.now().toString().slice(-6)}`,
+      amount: Math.round(grandTotal),
+      phone_number: payheroPhone,
+      channel_id: PAYHERO_CHANNEL_ID,
+      provider: 'm-pesa',
+      external_reference: ref,
+      callback_url: PAYHERO_CALLBACK_URL,
+      description: `Summer Tides Festival Ticket - ${ref}`,
     }),
   })
   .then(async (res) => {
     const data = await res.json();
-    if (!res.ok || data.success === false) {
-      throw new Error(data.message || 'M-Pesa STK push request failed.');
+    // PayHero returns ResponseCode '0' on success, or a non-2xx status
+    if (!res.ok || (data.ResponseCode && data.ResponseCode !== '0' && data.ResponseCode !== 0)) {
+      throw new Error(data.CustomerMessage || data.ResponseDescription || data.message || 'M-Pesa STK push request failed.');
     }
     
     // Success: Prompt sent to user phone
