@@ -4,10 +4,7 @@
 
 'use strict';
 
-const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? 'http://localhost:3000'
-  : 'https://nyota-foundation1.onrender.com';
-
+const API_BASE_URL = 'https://nyota-foundation1.onrender.com';
 
 /* ----------------------------------------------------------------
    DATA — Products / Tickets / Merchandise
@@ -797,14 +794,15 @@ function submitPayment() {
   }
   setProgress(30);
 
-  fetch(`${API_BASE_URL}/api/mpesa/stk-push`, {
+  fetch(`${API_BASE_URL}/initiate-payment/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      phoneNumber: cleanPhone,
+      phone_number: cleanPhone,
       amount: grandTotal,
-      transactionType: 'deposit',
-      accountReference: `TKT-${Date.now().toString().slice(-6)}`,
+      full_name: state.checkoutDetails?.name || 'Guest',
+      fee_amount: grandTotal,
+      description: `Summer Tides Ticket - TKT-${Date.now().toString().slice(-6)}`,
     }),
   })
   .then(async (res) => {
